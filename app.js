@@ -36,6 +36,12 @@ if (canvas) {
 function handleColorClick(event) {
   const selectedColor = event.target.style.backgroundColor;
   ctx.strokeStyle = selectedColor;
+  function handleCanvasClick() {
+    if (mode.innerText === 'PAINT') {
+      canvas.style.backgroundColor = selectedColor;
+    }
+  }
+  canvas.addEventListener('click', handleCanvasClick);
 }
 
 function handleRangeChange(event) {
@@ -48,3 +54,17 @@ Array.from(colors).forEach((color) =>
 );
 
 range.addEventListener('input', handleRangeChange);
+
+// fill 버튼 누르면 paint로 바뀌기
+// 버튼 텍트가 paint인 상태에서 색상버튼 클릭감지
+// 클릭한 색상버튼으로 캔버스 누르면 캔버스 전체 색상 채우기
+
+const mode = document.getElementById('jsMode');
+function handleModeClick() {
+  if (mode.innerText === 'FILL') {
+    mode.innerText = 'PAINT';
+  } else {
+    mode.innerText = 'FILL';
+  }
+}
+mode.addEventListener('click', handleModeClick);
