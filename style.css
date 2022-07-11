@@ -54,7 +54,7 @@ body {
 
 .controls__colors {
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0px;
 }
 
 .controls__color {

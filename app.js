@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const colors = document.getElementsByClassName('jsColor');
 const range = document.getElementById('jsRange');
 const mode = document.getElementById('jsMode');
+const save = document.getElementById('jsSave');
 
 const INITIAL_COLOR = '#000000';
 
@@ -43,11 +44,25 @@ function handleModeClick() {
 }
 mode.addEventListener('click', handleModeClick);
 
+function handleSaveClick() {
+  const image = canvas.toDataURL();
+  const link = document.createElement('a');
+  link.href = image;
+  link.download = '내 그림';
+  link.click();
+}
+save.addEventListener('click', handleSaveClick);
+
+function handleContextMenu(event) {
+  event.preventDefault();
+}
+
 if (canvas) {
   canvas.addEventListener('mousemove', onMouseMove);
   canvas.addEventListener('mousedown', startPainting);
   canvas.addEventListener('mouseup', stopPainting);
   canvas.addEventListener('mouseleave', stopPainting);
+  canvas.addEventListener('contextmenu', handleContextMenu);
 }
 
 function handleColorClick(event) {
