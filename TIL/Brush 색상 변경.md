@@ -54,3 +54,42 @@ console.log(total); // 15 출력
 - 배열의 기본 메서드를 사용할 수 없으므로 `Array.from(유사배열객체)` 를 이용해 **배열로 변환하여 사용**
 
   ❗ Nodelist는 유사배열이지만 `forEach` 메서드는 사용가능 (map, filter등은 사용불가능하므로 배열 변환 권장)
+
+  <br/><br/>
+
+## **`<input type="color">`**
+
+<br/>
+
+- `value` 속성을 이용해 기본값을 지정할 수 있다 (설정하지 않을 시 #000000)
+- `change` 와 `input` 이벤트를 통해 값의 변화 감지 가능
+
+<br/><br/>
+
+## HTML `data-` 속성
+
+<br/>
+
+- 특정한 데이터를 DOM요소에 저장해두기 위한 속성
+- 속성명은 `data-원하는 value` 형식이지만, 사용자에 의해 임의로 지정된 속성이므로 HTML 표준 속성인 `value` 속성과는 별개
+
+<br/>
+
+### 💡 자바스크립트에서 접근하기
+
+<br/>
+
+- `dataset` 객체를 통해 접근가능
+- 속성 이름의 `data-` 뒷부분을 사용해 접근한다
+- 대쉬로 연결된 속성명은 camelCase로 변환됨
+
+<br/>
+
+```jsx
+// HTML //
+<div id='color' data-color='#1abc9c'></div>;
+
+//JavaScript//
+const color = document.getElementById('color');
+color.dataset.color; // '#1abc9c'
+```
