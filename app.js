@@ -6,6 +6,8 @@ const colorOptions = Array.from(document.getElementsByClassName('jsColor'));
 const range = document.getElementById('jsRange');
 const mode = document.getElementById('jsMode');
 const save = document.getElementById('jsSave');
+const clear = document.getElementById('jsClear');
+const eraser = document.getElementById('jsEraser');
 
 const INITIAL_COLOR = '#000000';
 
@@ -14,6 +16,8 @@ ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = range.value;
 
 let isPainting = false;
+let isFilling = false;
+
 function stopPainting() {
   isPainting = false;
 }
@@ -33,18 +37,15 @@ function onMouseMove(event) {
   }
 }
 
-let filling = false;
-
 function handleModeClick() {
-  if (filling) {
-    filling = false;
+  if (isFilling) {
+    isFilling = false;
     mode.innerText = 'Fill';
   } else {
-    filling = true;
+    isFilling = true;
     mode.innerText = 'Paint';
   }
 }
-mode.addEventListener('click', handleModeClick);
 
 function handleSaveClick() {
   const image = canvas.toDataURL();
@@ -53,18 +54,9 @@ function handleSaveClick() {
   link.download = '내 그림';
   link.click();
 }
-save.addEventListener('click', handleSaveClick);
 
 function handleContextMenu(event) {
   event.preventDefault();
-}
-
-if (canvas) {
-  canvas.addEventListener('mousemove', onMouseMove);
-  canvas.addEventListener('mousedown', startPainting);
-  canvas.addEventListener('mouseup', stopPainting);
-  canvas.addEventListener('mouseleave', stopPainting);
-  canvas.addEventListener('contextmenu', handleContextMenu);
 }
 
 function handleColorInput(event) {
@@ -72,29 +64,46 @@ function handleColorInput(event) {
   ctx.strokeStyle = event.target.value;
 }
 
-colorInput.addEventListener('input', handleColorInput);
-
 function handleColorClick(event) {
   const selectedColor = event.target.dataset.color;
   ctx.strokeStyle = selectedColor;
   ctx.fillStyle = selectedColor;
   colorInput.value = selectedColor;
   function handleCanvasClick() {
-    if (filling) {
-      // ctx.fillRect(0, 0, canvas.width, canvas.height);
-      canvas.style.backgroundColor = selectedColor;
+    if (isFilling) {
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
   }
   canvas.addEventListener('click', handleCanvasClick);
 }
-
-colorOptions.forEach((color) =>
-  color.addEventListener('click', handleColorClick)
-);
 
 function handleRangeChange(event) {
   const size = event.target.value;
   ctx.lineWidth = size * 2;
 }
 
+function handleClearClick() {
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function handleEraserClick() {
+  ctx.strokeStyle = 'white';
+  isFilling = false;
+  mode.innerText = 'Fill';
+}
+
+canvas.addEventListener('mousemove', onMouseMove);
+canvas.addEventListener('mousedown', startPainting);
+canvas.addEventListener('mouseup', stopPainting);
+canvas.addEventListener('mouseleave', stopPainting);
+canvas.addEventListener('contextmenu', handleContextMenu);
+mode.addEventListener('click', handleModeClick);
+colorInput.addEventListener('input', handleColorInput);
+colorOptions.forEach((color) =>
+  color.addEventListener('click', handleColorClick)
+);
 range.addEventListener('input', handleRangeChange);
+clear.addEventListener('click', handleClearClick);
+eraser.addEventListener('click', handleEraserClick);
+save.addEventListener('click', handleSaveClick);
