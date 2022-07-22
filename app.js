@@ -8,12 +8,15 @@ const mode = document.getElementById('jsMode');
 const save = document.getElementById('jsSave');
 const clear = document.getElementById('jsClear');
 const eraser = document.getElementById('jsEraser');
+const fileInput = document.getElementById('jsFile');
+const textInput = document.getElementById('jsText');
 
 const INITIAL_COLOR = '#000000';
 
 ctx.strokeStyle = INITIAL_COLOR;
 ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = range.value;
+ctx.lineCap = 'round';
 
 let isPainting = false;
 let isFilling = false;
@@ -93,11 +96,34 @@ function handleEraserClick() {
   mode.innerText = 'Fill';
 }
 
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.src = url;
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    fileInput.value = null;
+  };
+}
+
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text !== '') {
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.font = '80px serif';
+    ctx.fillText(text, event.offsetX, event.offsetY);
+    ctx.restore();
+  }
+}
+
 canvas.addEventListener('mousemove', onMouseMove);
 canvas.addEventListener('mousedown', startPainting);
 canvas.addEventListener('mouseup', stopPainting);
 canvas.addEventListener('mouseleave', stopPainting);
 canvas.addEventListener('contextmenu', handleContextMenu);
+canvas.addEventListener('dblclick', onDoubleClick);
 mode.addEventListener('click', handleModeClick);
 colorInput.addEventListener('input', handleColorInput);
 colorOptions.forEach((color) =>
@@ -107,3 +133,4 @@ range.addEventListener('input', handleRangeChange);
 clear.addEventListener('click', handleClearClick);
 eraser.addEventListener('click', handleEraserClick);
 save.addEventListener('click', handleSaveClick);
+fileInput.addEventListener('change', handleFileChange);
