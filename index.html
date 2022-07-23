@@ -8,78 +8,72 @@
     <title>Paint Board</title>
   </head>
   <body>
+    <div id="jsColors" class="colors">
+      <div
+        class="colors__color jsColor"
+        style="background-color: black"
+        data-color="#000000"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: white"
+        data-color="#ffffff"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: red"
+        data-color="#ff0000"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: orange"
+        data-color="#ffa500"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: yellow"
+        data-color="#ffff00"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: green"
+        data-color="#008000"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: blue"
+        data-color="#0000ff"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: navy"
+        data-color="#000080"
+      ></div>
+      <div
+        class="colors__color jsColor"
+        style="background-color: purple"
+        data-color="#800080"
+      ></div>
+      <input type="color" id="jsColorInput" class="colors__input" />
+    </div>
     <canvas id="jsCanvas" class="canvas" width="600" height="600"></canvas>
     <div class="controls">
-      <div class="controls__range">
-        <input
-          type="range"
-          id="jsRange"
-          min="0.1"
-          max="5"
-          value="2.5"
-          step="0.1"
-        />
-      </div>
-      <div class="controls__btns">
-        <button id="jsMode">Fill</button>
-        <button id="jsEraser">Erase</button>
-        <button id="jsClear">Clear</button>
-        <input id="jsFile" type="file" accept="image/*" />
-        <input
-          id="jsText"
-          type="text"
-          placeholder="Write and then double click!"
-        />
-        <button id="jsSave">Save</button>
-      </div>
-      <div id="jsColors" class="controls__colors">
-        <div
-          class="controls__color jsColor"
-          style="background-color: black"
-          data-color="#000000"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: white"
-          data-color="#ffffff"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: red"
-          data-color="#ff0000"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: orange"
-          data-color="#ffa500"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: yellow"
-          data-color="#ffff00"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: green"
-          data-color="#008000"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: blue"
-          data-color="#0000ff"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: navy"
-          data-color="#000080"
-        ></div>
-        <div
-          class="controls__color jsColor"
-          style="background-color: purple"
-          data-color="#800080"
-        ></div>
-        <input type="color" id="jsColorInput" />
-      </div>
+      <input
+        type="range"
+        id="jsRange"
+        min="0.1"
+        max="5"
+        value="2.5"
+        step="0.1"
+      />
+      <button id="jsMode">Fill</button>
+      <button id="jsEraser">Erase</button>
+      <button id="jsClear">Clear</button>
+      <label for="jsFile"
+        >Add Photo<input id="jsFile" type="file" accept="image/*"
+      /></label>
+      <input id="jsText" type="text" placeholder="Double-click the canvas :)" />
+      <button id="jsSave">Save</button>
     </div>
     <script src="app.js"></script>
   </body>

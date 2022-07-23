@@ -51,9 +51,9 @@ function handleModeClick() {
 }
 
 function handleSaveClick() {
-  const image = canvas.toDataURL();
+  const imgUrl = canvas.toDataURL();
   const link = document.createElement('a');
-  link.href = image;
+  link.href = imgUrl;
   link.download = '내 그림';
   link.click();
 }
